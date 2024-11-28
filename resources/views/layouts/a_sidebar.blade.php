@@ -22,7 +22,7 @@
     </div>
     <!-- End Profile Menu -->
     <!-- Sidebar Menu -->
-    < class="mt-2">
+    <class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview"
             role="menu" data-accordion="false">
             <li class="nav-item">
@@ -35,13 +35,13 @@
             <li class="nav-item">
                 <a href="{{ url('/aLevel') }}" class="nav-link {{ ($activeMenu == 'aLevel')?
 'active' : '' }} ">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="nav-icon fa fa-sitemap"></i>
                     <p>Level User</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-book"></i>
+                    <i class="nav-icon fas fa-users"></i>
                     <p>
                         Users
                         <i class="fas fa-angle-left right"></i>
@@ -77,7 +77,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-book"></i>
+                    <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
                         Daftar Mahasiswa
                         <i class="fas fa-angle-left right"></i>
@@ -104,7 +104,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-book"></i>
+                    <i class="nav-icon fas fa-tasks"></i>
                     <p>
                         Daftar Tugas
                         <i class="fas fa-angle-left right"></i>
@@ -146,19 +146,19 @@
             </li>
             <li class="nav-item">
                 <a href="{{ url('/aManageDataMahasiswaKompen') }}" class="nav-link {{ ($activeMenu =='aManageDaMaKom')? 'active' : 'aManageDaMaKom' }} ">
-                    <i class="nav-icon fas fa-history"></i>
+                    <i class="nav-icon fa fa-newspaper"></i>
                     <p>Manage Data Mahasiswa Kompen</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('/aManageKompen') }}" class="nav-link {{ ($activeMenu =='aManageKompen')? 'active' : 'aManageKompen' }} ">
-                    <i class="nav-icon fas fa-history"></i>
+                    <i class="nav-icon fa fa-address-book"></i>
                     <p>Manage Kompen</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('/aUpdateKompenSelesai') }}" class="nav-link {{ ($activeMenu =='aUpdateKompen')? 'active' : 'aUpdateKompen' }} ">
-                    <i class="nav-icon fas fa-history"></i>
+                    <i class="nav-icon fas fa-check-square"></i>
                     <p>Update Kompen Selesai</p>
                 </a>
             </li>

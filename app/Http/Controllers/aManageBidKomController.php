@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\aManageBidKomModel;
+use App\Models\BidangKompetensiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -38,9 +39,9 @@ class aManageBidKomController extends Controller
         return DataTables::of($aManageBidKoms)
             ->addIndexColumn()
             ->addColumn('aksi', function ($aManageBidKom) {
-                $btn = '<button onclick="modalAction(\'' . url('/aManageBidKom/' . $aManageBidKom->level_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button>';
-                $btn .= '<button onclick="modalAction(\'' . url('/aManageBidKom/' . $aManageBidKom->level_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button>';
-                $btn .= '<button onclick="modalAction(\'' . url('/aManageBidKom/' . $aManageBidKom->level_id . '/confirm_ajax') . '\')" class="btn btn-danger btn-sm">Delete</button>';
+                $btn = '<button onclick="modalAction(\'' . url('/aManageBidKom/' . $aManageBidKom->bidkom_id . '/show_ajax') . '\')" class="btn btn-info btn-sm" style="margin-right: 5px;">Detail</button>';
+                $btn .= '<button onclick="modalAction(\'' . url('/aManageBidKom/' . $aManageBidKom->bidkom_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button>';
+                $btn .= '<button onclick="modalAction(\'' . url('/aManageBidKom/' . $aManageBidKom->bidkom_id . '/confirm_ajax') . '\')" class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
                 return $btn;
             })
             ->rawColumns(['aksi'])

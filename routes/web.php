@@ -145,8 +145,8 @@ Route::group(['prefix' => 'aUser'], function () {
     Route::get('/create_ajax', [aUserController::class, 'create_ajax']);
     Route::post('/ajax', [aUserController::class, 'store_ajax']);
     Route::get('/{id}/show_ajax', [aUserController::class, 'show_ajax']);
-    Route::get('/{id}/edit_ajax', [aLevelController::class, 'edit_ajax']);
-    Route::put('/{id}/update_ajax', [aLevelController::class, 'update_ajax']);
+    Route::get('/{id}/edit_ajax', [aUserController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [aUserController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax', [aUserController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [aUserController::class, 'delete_ajax']);
 });

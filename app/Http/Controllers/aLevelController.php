@@ -38,9 +38,9 @@ class aLevelController extends Controller
         return DataTables::of($aLevels)
             ->addIndexColumn()
             ->addColumn('aksi', function ($aLevel) {
-                $btn = '<button onclick="modalAction(\'' . url('/aLevel/' . $aLevel->level_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button>';
+                $btn = '<button onclick="modalAction(\'' . url('/aLevel/' . $aLevel->level_id . '/show_ajax') . '\')" class="btn btn-info btn-sm" style="margin-right: 5px;">Detail</button>';
                 $btn .= '<button onclick="modalAction(\'' . url('/aLevel/' . $aLevel->level_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button>';
-                $btn .= '<button onclick="modalAction(\'' . url('/aLevel/' . $aLevel->level_id . '/confirm_ajax') . '\')" class="btn btn-danger btn-sm">Delete</button>';
+                $btn .= '<button onclick="modalAction(\'' . url('/aLevel/' . $aLevel->level_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -132,5 +132,33 @@ class aLevelController extends Controller
             }
         }
         return redirect('/aLevel');
+    }
+
+    public function confirm_ajax(string $id)
+    {
+        $aLevel = LevelModel::find($id);
+
+        return view('aLevel.confirm_ajax', ['aLevel' => $aLevel]);
+    }
+
+    public function delete_ajax(Request $request, string $id)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $aLevel = LevelModel::find($id);
+
+            if ($aLevel) {
+                $aLevel->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil dihapus'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }
+            return redirect('/aLevel');
+        }
     }
 }

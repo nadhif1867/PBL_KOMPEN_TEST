@@ -41,26 +41,25 @@ class aUserController extends Controller
         return DataTables::of($aUsers)
             ->addIndexColumn()
             ->addColumn('aksi', function ($aUser) {
-                $btn  = '<button onclick="modalAction(\'' . url('/user/' . $aUser->user_id .
-                    '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/aUser/' . $aUser->user_id .
-                    '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/aUser/' . $aUser->user_id .
-                    '/delete_ajax') . '\')"  class="btn btn-danger btn-sm">Hapus</button> ';
+                $btn  = '<button onclick="modalAction(\'' . url('/aUser/' . $aUser->user_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/aUser/' . $aUser->user_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/aUser/' . $aUser->user_id . '/delete_ajax') . '\')"  class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
             })
             ->rawColumns(['aksi'])
             ->make(true);
     }
 
-    public function create_ajax() {
+    public function create_ajax()
+    {
         $aLevel = LevelModel::select('level_id', 'level_nama')->get();
 
         return view('aUser.create_ajax')
             ->with('aLevel', $aLevel);
     }
 
-    public function store_ajax(Request $request) {
+    public function store_ajax(Request $request)
+    {
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 'level_id' => 'required|integer',
@@ -90,20 +89,22 @@ class aUserController extends Controller
         return redirect('/aUser');
     }
 
-    public function edit_ajax(string $id) {
+    public function edit_ajax(string $id)
+    {
         $aUser = UserModel::find($id);
         $aLevel = LevelModel::select('level_id', 'level_nama')->get();
 
         return view('aUser.edit_ajax', ['aUser' => $aUser, 'aLevel' => $aLevel]);
     }
 
-    public function update_ajax(Request $request, $id) {
+    public function update_ajax(Request $request, $id)
+    {
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 'level_id' => 'required|integer',
                 'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',user_id',
                 'nama' => 'required|string|max:100',
-                'password' => 'required|min:5|max:20',
+                'password' => 'nullable|min:5|max:20',
                 'avatar' => 'nullable'
             ];
 
@@ -127,6 +128,41 @@ class aUserController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => 'Data user berhasil diupdate'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }
+        }
+        return redirect('/aUser');
+    }
+
+    public function show_ajax(string $id)
+    {
+        $aUser = UserModel::find($id);
+
+        return view('aUser.show_ajax', ['aUser' => $aUser]);
+    }
+
+    public function confirm_ajax(String $id)
+    {
+        $aUser = UserModel::find($id);
+
+        return view('aUser.confirm_ajax', ['aUser' => $aUser]);
+    }
+
+    public function delete_ajax(Request $request, $id)
+    {
+        // cek apakah requset dari ajax
+        if ($request->ajax() || $request->wantsJson()) {
+            $aUser = UserModel::find($id);
+            if ($aUser) {
+                $aUser->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil dihapus'
                 ]);
             } else {
                 return response()->json([
